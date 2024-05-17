@@ -22,22 +22,22 @@ function operate(l, m, n) {
     if (n === "+") {
         const divResultAdd = document.createElement("div")
         divResultAdd.textContent = add(l,m)
-        body.appendChild(divResultAdd)
+        display.appendChild(divResultAdd)
         return add(l,m)
     } else if (n === "-") {
         const divResultSubstract = document.createElement("div")
         divResultSubstract.textContent = substract(l,m)
-        body.appendChild(divResultSubstract)
+        display.appendChild(divResultSubstract)
         return substract(l,m)
     } else if (n === "*") {
         const divResultMultiply = document.createElement("div")
         divResultMultiply.textContent = multiply(l,m)
-        body.appendChild(divResultMultiply)
+        display.appendChild(divResultMultiply)
         return multiply(l,m)
     } else if (n === "/") {
         const divResultDivide = document.createElement("div")
         divResultDivide.textContent = divide(l,m)
-        body.appendChild(divResultDivide)
+        display.appendChild(divResultDivide)
         return divide(l,m)
     }
 }
@@ -50,6 +50,10 @@ function operate(l, m, n) {
 // }
 
 const body = document.querySelector("body")
+const display = document.createElement("div")
+display.setAttribute("id", "display")
+body.appendChild(display)
+
 
 let j = []
 let m = []
@@ -65,10 +69,10 @@ for (k=0; k<j.length; k++) {
     let h = j[k]
     let l = k
     h.addEventListener("click", () => {
-       const display = document.createElement("div")
-       display.textContent = l
-       body.appendChild(display)
-       display.setAttribute("id", "number")
+       const displayNumber = document.createElement("div")
+       displayNumber.textContent = l
+       display.appendChild(displayNumber)
+       displayNumber.setAttribute("id", "number")
        m.push(l)
     //    console.log(m)
     })
@@ -105,10 +109,17 @@ btnEqual.addEventListener("click", () => {
     // body.removeChild(divNumber)
     // const divNumber1 = document.getElementById("number")
     // body.removeChild(divNumber)
-    const div = document.querySelector("div")
-    body.removeChild(div)
-    const div1 = document.querySelector("div")
-    body.removeChild(div1)
+    // const div = document.querySelector("div")
+    // body.removeChild(div)
+    // const div1 = document.querySelector("div")
+    // body.removeChild(div1)
+    if (m[1] === "/" && m[2] === 0) {
+        alert("error")
+    }
+    const divRemove = document.getElementById("display")
+    while (divRemove.firstChild) {
+        divRemove.removeChild(divRemove.firstChild)
+    }
     // console.log(m)
     // console.log(operate(m[0], m[2], m[1]))
     m.splice(0, 1, operate(m[0], m[2], m[1]))
@@ -120,10 +131,10 @@ const btnClear = document.createElement("button")
 btnClear.textContent = "clear"
 body.appendChild(btnClear)
 btnClear.addEventListener("click", () => {
-    const div2 = document.querySelector("div")
-    body.removeChild(div2)
-    // const div3 = document.querySelector("div")
-    // body.removeChild(div3)
+    const divRemove = document.getElementById("display")
+    while (divRemove.firstChild) {
+        divRemove.removeChild(divRemove.firstChild)
+    }
 })
 
 // console.log(divide(4, 5))
